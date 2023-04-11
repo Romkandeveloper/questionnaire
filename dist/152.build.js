@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[152],{152:(a,e,s)=>{s.r(e),s.d(e,{default:()=>t});var n=s(252);const d={name:"Index.vue"},t=(0,s(744).Z)(d,[["render",function(a,e,s,d,t,u){const r=(0,n.up)("v-card");return(0,n.wg)(),(0,n.j4)(r,{loading:"",text:"..asdasdasasasdsads.",variant:"outlined"})}]])}}]);

@@ -12,4 +12,5 @@
 <body class="antialiased">
 <div id="app"></div>
 </body>
+<script src="/dist/build.js"></script>
 </html>

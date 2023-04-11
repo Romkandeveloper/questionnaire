@@ -1,10 +1,10 @@
 <template>
-$END$
+  <v-card loading text="..asdasdasasasdsads." variant="outlined"></v-card>
 </template>
 
 <script>
 export default {
-name: "Index.vue"
+  name: "Index.vue"
 }
 </script>
 

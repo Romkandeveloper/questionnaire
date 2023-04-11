@@ -56,4 +56,9 @@ class Router
             //
         }
     }
+
+    public function isApiRoute()
+    {
+        debug($_SERVER['REQUEST_URI']);
+    }
 }
