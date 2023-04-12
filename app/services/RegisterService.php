@@ -16,10 +16,11 @@ class RegisterService
     public function register(array $data)
     {
         if ($this->validate($data)) {
-            $user_id = User::create($data);
             session_start();
+            User::create($data);
+            $user = User::getByEmail($data['email'])[0];
             $_SESSION['login'] = true;
-            $_SESSION['id'] = $user_id;
+            $_SESSION['id'] = $user['id'];
         } else {
             throw new \Exception('Validation error', 403);
         }
