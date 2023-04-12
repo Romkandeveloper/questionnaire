@@ -1,12 +1,14 @@
 <?php
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+error_reporting(false);
 
-function debug($str)
-{
-    echo '<pre>';
-    var_dump($str);
-    echo '</pre>';
-    exit;
-}
+//ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+//
+//function debug($str)
+//{
+//    echo '<pre>';
+//    var_dump($str);
+//    echo '</pre>';
+//    exit;
+//}

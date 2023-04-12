@@ -1,5 +1,6 @@
 <?php
 
+require __DIR__ . '/vendor/autoload.php';
 require 'lib/Dev.php';
 
 use core\Router;
@@ -12,4 +13,4 @@ spl_autoload_register(function ($class) {
 });
 
 $router = new Router;
-$router->run();
+return $router->run();

@@ -7,7 +7,7 @@ return [
         'method' => 'get',
     ],
 
-    '/api/register' => [
+    'api/register' => [
         'controller' => 'register',
         'action' => 'register',
         'method' => 'post',

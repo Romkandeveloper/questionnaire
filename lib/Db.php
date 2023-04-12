@@ -10,8 +10,13 @@ class Db
 
     public function __construct()
     {
-        $dbConfig = require 'config\db.php';
-        $this->db = new PDO('mysql:host=' . $dbConfig['host'] . ';dbname=' . $dbConfig['dbname'], $dbConfig['user'], $dbConfig['password']);
+        $dbConfig = require 'config/db.php';
+
+        $this->db = new PDO(
+            'mysql:host=' . $dbConfig['host'] . ';dbname=' . $dbConfig['dbname'],
+            $dbConfig['user'],
+            $dbConfig['password']
+        );
     }
 
     public function query($sql, $params = [])
@@ -23,6 +28,7 @@ class Db
             }
 
             $smtp->execute();
+            return $this->db->lastInsertId();
         } else {
             $smtp = $this->db->query($sql);
         }
