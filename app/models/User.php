@@ -20,4 +20,11 @@ class User extends Model
             'password' => password_hash($data['password'], PASSWORD_DEFAULT),
         ]);
     }
+
+    static public function getByEmail(string $email)
+    {
+        $db = new Db;
+
+        return $db->query('SELECT * FROM users WHERE email = :email', ['email' => $email]);
+    }
 }

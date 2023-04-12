@@ -35,7 +35,7 @@
               size="large"
               color="success"
               variant="flat"
-              :disabled="!valid || !isSamePasswords"
+              :disabled="!valid"
               :loading="loading"
               @click.p.prevent="submit"
           >

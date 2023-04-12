@@ -28,11 +28,10 @@ class Db
             }
 
             $smtp->execute();
-            return $this->db->lastInsertId();
         } else {
-            $smtp = $this->db->query($sql);
+            $smtp = $this->db->query($sql, PDO::FETCH_ASSOC);
         }
 
-        return $smtp->fetchAll();
+        return $smtp->fetchAll(PDO::FETCH_ASSOC);
     }
 }

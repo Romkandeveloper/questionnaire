@@ -12,4 +12,10 @@ return [
         'action' => 'register',
         'method' => 'post',
     ],
+
+    'api/login' => [
+        'controller' => 'login',
+        'action' => 'login',
+        'method' => 'post',
+    ],
 ];

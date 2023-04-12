@@ -16,8 +16,8 @@ class RegisterService
     public function register(array $data)
     {
         if ($this->validate($data)) {
-            session_start();
             $user_id = User::create($data);
+            session_start();
             $_SESSION['login'] = true;
             $_SESSION['id'] = $user_id;
         } else {
