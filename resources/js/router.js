@@ -4,15 +4,20 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         {
-            name: 'user.register',
             path: '/',
+            redirect: '/dashboard',
+            meta: {}
+        },
+        {
+            name: 'user.register',
+            path: '/register',
             component: () => import('./pages/Register.vue'),
             meta: {}
         },
         {
             name: 'user.login',
             path: '/login',
-            component: () => import('./pages/Register.vue'),
+            component: () => import('./pages/Login.vue'),
             meta: {}
         },
         {

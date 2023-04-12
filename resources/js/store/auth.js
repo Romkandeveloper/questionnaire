@@ -19,6 +19,16 @@ export const auth = {
 
             return Promise.resolve();
         },
+
+        async login({commit, dispatch}, loginData) {
+            try{
+                const res = await axios.post('/api/login', loginData);
+            } catch (e) {
+                throw e;
+            }
+
+            return Promise.resolve();
+        },
     },
 
     getters: {},
