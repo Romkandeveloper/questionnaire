@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use core\Controller;
-use core\Model;
 
 class MainController extends Controller
 {

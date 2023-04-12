@@ -2,6 +2,8 @@
 
 namespace core;
 
+use app\controllers\MainController;
+
 class Router
 {
     protected $routes = [];
@@ -15,7 +17,12 @@ class Router
         }
     }
 
-    public function add($route, $params)
+    /**
+     * @param string $route
+     * @param array $params
+     * @return void
+     */
+    public function add(string $route, array $params)
     {
         $route = '#^' . $route . '$#';
         $this->routes[$route] = $params;
@@ -24,22 +31,26 @@ class Router
     public function match()
     {
         $url = $_SERVER['REQUEST_URI'];
+        $method = $_SERVER['REQUEST_METHOD'];
         $getIndex = strrpos($url, '?');
         $url = $getIndex ? substr($url, 0, $getIndex) : $url;
         $url = trim($url, '/');
 
-        foreach ($this->routes as $route => $params) {
-            if (preg_match($route, $url, $matches)) {
+        foreach ($this->routes as $route => $params) {;
+            if (preg_match($route, $url, $matches) && strtolower($method) == $params['method']) {
                 $this->params = $params;
                 return true;
             }
         }
+
         return false;
     }
 
     public function run()
     {
-        if ($this->match()) {
+        if (! $this->isApiRoute($_SERVER['REQUEST_URI'])) {
+             (new MainController($this->params))->indexAction();
+        } else if ($this->match()) {
             $path = 'app\controllers\\' . ucfirst($this->params['controller']) . 'Controller';
             if (class_exists($path)) {
                 $action = $this->params['action'] . 'Action';
@@ -47,18 +58,22 @@ class Router
                     $controller = new $path($this->params);
                     $controller->$action();
                 } else {
-                    //
+                    header('Status: 503 Service Temporarily Unavailable');
                 }
             } else {
-                //
+                header('Status: 503 Service Temporarily Unavailable');
             }
         } else {
-            //
+            header('Status: 503 Service Temporarily Unavailable');
         }
     }
 
-    public function isApiRoute()
+    /**
+     * @param string $url
+     * @return bool
+     */
+    public function isApiRoute(string $url)
     {
-        debug($_SERVER['REQUEST_URI']);
+        return str_starts_with($url, '/api');
     }
 }
