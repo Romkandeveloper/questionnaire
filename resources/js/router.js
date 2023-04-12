@@ -15,6 +15,12 @@ const router = createRouter({
             component: () => import('./pages/Register.vue'),
             meta: {}
         },
+        {
+            name: 'dashboard',
+            path: '/dashboard',
+            component: () => import('./pages/Dashboard.vue'),
+            meta: {}
+        },
     ],
 });
 
