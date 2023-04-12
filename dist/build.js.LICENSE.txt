@@ -4,12 +4,6 @@
   * @license MIT
   */
 
-/*!
- * vuex v4.1.0
- * (c) 2022 Evan You
- * @license MIT
- */
-
 /**
  * WCAG 3.0 APCA perceptual contrast algorithm from https://github.com/Myndex/SAPC-APCA
  * @licence https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document

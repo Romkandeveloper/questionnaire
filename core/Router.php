@@ -34,9 +34,9 @@ class Router
         $method = $_SERVER['REQUEST_METHOD'];
         $getIndex = strrpos($url, '?');
         $url = $getIndex ? substr($url, 0, $getIndex) : $url;
-        $url = trim($url, '/');
+        $url = trim($url, '/');;
 
-        foreach ($this->routes as $route => $params) {;
+        foreach ($this->routes as $route => $params) {
             if (preg_match($route, $url, $matches) && strtolower($method) == $params['method']) {
                 $this->params = $params;
                 return true;
@@ -51,6 +51,7 @@ class Router
         if (! $this->isApiRoute($_SERVER['REQUEST_URI'])) {
              (new MainController($this->params))->indexAction();
         } else if ($this->match()) {
+            header('Content-Type: application/json; charset=utf-8');
             $path = 'app\controllers\\' . ucfirst($this->params['controller']) . 'Controller';
             if (class_exists($path)) {
                 $action = $this->params['action'] . 'Action';

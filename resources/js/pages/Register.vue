@@ -121,6 +121,7 @@ export default {
         router.push({name: 'dashboard'});
       }).catch(e => {
         alert('Error');
+        console.log(e);
         this.valid = false;
       }).finally(() => {
         this.loading = false;
