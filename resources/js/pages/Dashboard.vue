@@ -2,7 +2,7 @@
   <default-layout>
     <v-row>
       <v-col cols="12">
-        Hi!
+        <Header />
       </v-col>
     </v-row>
   </default-layout>
@@ -11,10 +11,11 @@
 <script>
 
 import DefaultLayout from "../layouts/DefaultLayout.vue";
+import Header from "../components/Header.vue";
 
 export default {
   name: "Dashboard",
-  components: { DefaultLayout },
+  components: {Header, DefaultLayout },
 
   data() {
     return {

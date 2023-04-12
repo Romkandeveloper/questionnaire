@@ -33,6 +33,18 @@ export const auth = {
 
             return Promise.resolve();
         },
+
+        async logout({commit, dispatch}) {
+            try{
+                const res = await axios.post('/api/logout');
+                commit('setIsAuth', false);
+            } catch (e) {
+                throw e;
+            }
+
+            return Promise.resolve();
+        },
+
     },
 
     getters: {},
