@@ -12,7 +12,6 @@
 
 import DefaultLayout from "../layouts/DefaultLayout.vue";
 import Header from "../components/Header.vue";
-import {mapActions} from "vuex";
 
 export default {
   name: "Dashboard",
@@ -24,15 +23,11 @@ export default {
     }
   },
 
-  mounted() {
-    this.checkLoginStatus();
-  },
-
   computed: {
 
   },
   methods: {
-      ...mapActions(['checkLoginStatus']),
+
   },
 }
 </script>

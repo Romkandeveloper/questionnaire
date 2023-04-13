@@ -4,7 +4,11 @@
 
 <script>
 export default {
-  name: "App.vue"
+  name: "App.vue",
+
+  beforeCreate() {
+    this.$store.dispatch('checkLoginStatus');
+  },
 }
 </script>
 

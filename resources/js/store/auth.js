@@ -1,5 +1,4 @@
 import axios from "axios";
-import {ca} from "vuetify/locale";
 
 export const auth = {
     state: () => ({
@@ -15,7 +14,7 @@ export const auth = {
     actions: {
         async register({commit, dispatch}, registerData) {
             try{
-                const res = await axios.post('/api/register', registerData);
+                await axios.post('/api/register', registerData);
                 commit('setIsAuth', true);
             } catch (e) {
                 throw e;
@@ -26,7 +25,7 @@ export const auth = {
 
         async login({commit, dispatch}, loginData) {
             try{
-                const res = await axios.post('/api/login', loginData);
+                await axios.post('/api/login', loginData);
                 commit('setIsAuth', true);
             } catch (e) {
                 throw e;
@@ -37,7 +36,7 @@ export const auth = {
 
         async logout({commit, dispatch}) {
             try{
-                const res = await axios.post('/api/logout');
+                await axios.post('/api/logout');
                 commit('setIsAuth', false);
             } catch (e) {
                 throw e;
@@ -55,9 +54,9 @@ export const auth = {
             }
 
             return Promise.resolve();
-        }
-
+        },
     },
 
     getters: {},
 };
+
