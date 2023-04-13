@@ -71,8 +71,6 @@
 </template>
 
 <script>
-
-
 import {mapActions} from "vuex";
 import router from "../../router";
 
@@ -83,6 +81,7 @@ export default {
     return {
       fields: {
         question: '',
+        isPublish: true,
         answers: [{value: '', votes: ''}],
       },
       rules: {
@@ -100,7 +99,7 @@ export default {
   },
 
   methods: {
-    ...mapActions['storeQuestionnaire'],
+    ...mapActions(['storeQuestionnaire']),
 
     addField() {
       this.fields.answers.push({value: '', votes: ''});
@@ -115,7 +114,7 @@ export default {
       this.loading = true;
       this.storeQuestionnaire({
         question: this.fields.question,
-        answers: this.answers,
+        answers: this.fields.answers,
         isPublish: isPublish
       }).then(res => {
         router.push({name: 'user.profile'});

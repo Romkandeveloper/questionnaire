@@ -19,7 +19,7 @@ class Db
         );
     }
 
-    public function query($sql, $params = [])
+    public function query($sql, $params = [], $returnId = false)
     {
         if (!empty($params)) {
             $smtp = $this->db->prepare($sql);
@@ -32,6 +32,6 @@ class Db
             $smtp = $this->db->query($sql, PDO::FETCH_ASSOC);
         }
 
-        return $smtp->fetchAll(PDO::FETCH_ASSOC);
+        return $returnId ? $this->db->lastInsertId() : $smtp->fetchAll(PDO::FETCH_ASSOC);
     }
 }

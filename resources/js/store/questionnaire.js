@@ -10,7 +10,7 @@ export const questionnaire = {
     },
 
     actions: {
-        async storeQuestionnaire({commit, dispatch}, data) {
+        async storeQuestionnaire({}, data) {
             try{
                 await axios.post('/api/questionnaire', data);
             } catch (e) {

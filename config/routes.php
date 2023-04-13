@@ -30,4 +30,10 @@ return [
         'action' => 'isLogin',
         'method' => 'get',
     ],
+
+    'api/questionnaire' => [
+        'controller' => 'questionnaires',
+        'action' => 'store',
+        'method' => 'post',
+    ],
 ];
