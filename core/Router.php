@@ -13,7 +13,7 @@ class Router
     {
         $routes = require 'config/routes.php';
         foreach ($routes as $route => $params) {
-            $this->add($route, $params);
+            $this->add($params);
         }
     }
 
@@ -22,10 +22,11 @@ class Router
      * @param array $params
      * @return void
      */
-    public function add(string $route, array $params)
+    public function add(array $params)
     {
-        $route = '#^' . $route . '$#';
-        $this->routes[$route] = $params;
+        $route = '#^' . $params['path'] . '$#';
+        $params['path'] = $route;
+        $this->routes[] = $params;
     }
 
     public function match()
@@ -37,7 +38,7 @@ class Router
         $url = trim($url, '/');;
 
         foreach ($this->routes as $route => $params) {
-            if (preg_match($route, $url, $matches) && strtolower($method) == $params['method']) {
+            if (preg_match($params['path'], $url, $matches) && strtolower($method) == $params['method']) {
                 $this->params = $params;
                 return true;
             }

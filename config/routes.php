@@ -1,39 +1,66 @@
 <?php
 
 return [
-    '' => [
+    array(
+        'path' => '',
+        'method' => 'get',
         'controller' => 'main',
         'action' => 'index',
-        'method' => 'get',
-    ],
+    ),
 
-    'api/register' => [
+    array(
+        'path' => 'api/register',
+        'method' => 'post',
         'controller' => 'register',
         'action' => 'register',
-        'method' => 'post',
-    ],
+    ),
 
-    'api/login' => [
+    array(
+        'path' => 'api/login',
+        'method' => 'post',
         'controller' => 'login',
         'action' => 'login',
-        'method' => 'post',
-    ],
+    ),
 
-    'api/logout' => [
+    array(
+        'path' => 'api/logout',
+        'method' => 'post',
         'controller' => 'login',
         'action' => 'logout',
-        'method' => 'post',
-    ],
+    ),
 
-    'api/login/status' => [
+    array(
+        'path' => 'api/login/status',
+        'method' => 'get',
         'controller' => 'login',
         'action' => 'isLogin',
-        'method' => 'get',
-    ],
+    ),
 
-    'api/questionnaire' => [
+    array(
+        'path' => 'api/questionnaire',
+        'method' => 'post',
         'controller' => 'questionnaires',
         'action' => 'store',
-        'method' => 'post',
-    ],
+    ),
+
+    array(
+        'path' => 'api/questionnaire',
+        'method' => 'delete',
+        'controller' => 'questionnaires',
+        'action' => 'destroy',
+    ),
+
+     array(
+         'path' => 'api/questionnaire/all',
+         'method' => 'get',
+         'controller' => 'questionnaires',
+         'action' => 'index',
+     ),
+
+    array(
+        'path' => 'api/questionnaire/custom',
+        'method' => 'get',
+        'controller' => 'questionnaires',
+        'action' => 'getCustom',
+    ),
 ];
