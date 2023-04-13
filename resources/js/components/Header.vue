@@ -44,6 +44,7 @@
 
 <script>
 import {mapActions, mapState} from "vuex";
+import router from "../router";
 
 export default {
   name: "Header",
@@ -66,6 +67,7 @@ export default {
     submit() {
       this.loading = true;
       this.logout()
+          .then(res => router.push({name: 'dashboard'}))
           .finally(() => {
             this.loading = false;
           });

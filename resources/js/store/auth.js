@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const auth = {
     state: () => ({
-        c: false,
+        isAuth: false,
     }),
 
     mutations: {

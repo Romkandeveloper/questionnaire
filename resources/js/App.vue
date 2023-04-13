@@ -17,7 +17,9 @@ export default {
   },
 
   beforeMount() {
-    this.checkLoginStatus().then(res => this.loading = false);
+    this.checkLoginStatus().then(res => {
+      this.loading = false
+    });
   },
 }
 </script>

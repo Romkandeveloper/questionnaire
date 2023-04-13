@@ -1,5 +1,5 @@
 <template>
-  <v-layout style="min-height: 100vh" class="background-gray">
+  <v-layout>
         <slot></slot>
   </v-layout>
 </template>

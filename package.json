@@ -17,6 +17,7 @@
     "webpack-plugin-vuetify": "^2.0.1"
   },
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "watch": "webpack --watch"
   }
 }

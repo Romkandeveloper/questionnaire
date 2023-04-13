@@ -4,7 +4,7 @@
       <v-col cols="12">
         <Header />
       </v-col>
-      <v-col cols="12">
+      <v-col cols="5">
         <create-form></create-form>
       </v-col>
     </v-row>
