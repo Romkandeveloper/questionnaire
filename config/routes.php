@@ -18,4 +18,16 @@ return [
         'action' => 'login',
         'method' => 'post',
     ],
+
+    'api/logout' => [
+        'controller' => 'login',
+        'action' => 'logout',
+        'method' => 'post',
+    ],
+
+    'api/login/status' => [
+        'controller' => 'login',
+        'action' => 'isLogin',
+        'method' => 'get',
+    ],
 ];

@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import store from '../js/store/index';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -50,7 +51,7 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-    const isAuth = document.cookie.includes("PHPSESSID");
+    const isAuth = store.state.isAuth;
     const login = to.meta.auth && to.meta.auth.login;
     const only = to.meta.auth && to.meta.auth.only;
 

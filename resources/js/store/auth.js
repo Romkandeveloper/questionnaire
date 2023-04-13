@@ -1,8 +1,9 @@
 import axios from "axios";
+import {ca} from "vuetify/locale";
 
 export const auth = {
     state: () => ({
-        isAuth: document.cookie.includes("PHPSESSID"),
+        isAuth: false,
     }),
 
     mutations: {
@@ -44,6 +45,17 @@ export const auth = {
 
             return Promise.resolve();
         },
+
+        async checkLoginStatus({commit}) {
+            try {
+                const res = await axios.get('/api/login/status');
+                commit('setIsAuth', res.data.status);
+            } catch (e) {
+                throw e;
+            }
+
+            return Promise.resolve();
+        }
 
     },
 

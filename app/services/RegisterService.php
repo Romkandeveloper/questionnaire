@@ -3,7 +3,6 @@
 namespace app\services;
 
 use Valitron\Validator;
-
 use app\models\User;
 
 class RegisterService
@@ -16,7 +15,6 @@ class RegisterService
     public function register(array $data)
     {
         if ($this->validate($data)) {
-            session_start();
             User::create($data);
             $user = User::getByEmail($data['email'])[0];
             $_SESSION['login'] = true;

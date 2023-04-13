@@ -19,7 +19,7 @@ class LoginController extends Controller
     public function loginAction()
     {
         try {
-            $res = $this->loginService->login($this->getRequestDataBody());
+            $this->loginService->login($this->getRequestDataBody());
         } catch (\Exception $exception) {
             http_response_code($exception->getCode());
             echo json_encode([
@@ -33,20 +33,37 @@ class LoginController extends Controller
         ]);
     }
 
-//    public function logoutAction()
-//    {
-//        try {
-//            $res = $this->registerService->register($this->getRequestDataBody());
-//        } catch (\Exception $exception) {
-//            http_response_code($exception->getCode());
-//            echo json_encode([
-//                'status' => 'error',
-//                'message' => $exception->getMessage(),
-//            ]);
-//        }
-//
-//        echo json_encode([
-//            'status' => 'success',
-//        ]);
-//    }
+    public function logoutAction()
+    {
+        try {
+            $this->loginService->logout();
+        } catch (\Exception $exception) {
+            http_response_code($exception->getCode());
+            echo json_encode([
+                'status' => 'error',
+                'message' => $exception->getMessage(),
+            ]);
+        }
+
+        echo json_encode([
+            'status' => 'success',
+        ]);
+    }
+
+    public function isLoginAction()
+    {
+        try {
+            $res = $this->loginService->isLogin();
+        } catch (\Exception $exception) {
+            http_response_code($exception->getCode());
+            echo json_encode([
+                'status' => 'error',
+                'message' => $exception->getMessage(),
+            ]);
+        }
+
+        echo json_encode([
+            'status' => $res,
+        ]);
+    }
 }

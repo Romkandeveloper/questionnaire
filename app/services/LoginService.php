@@ -3,7 +3,6 @@
 namespace app\services;
 
 use Valitron\Validator;
-
 use app\models\User;
 
 class LoginService
@@ -19,7 +18,6 @@ class LoginService
             $user = User::getByEmail($data['email'])[0];
             if ($user) {
                if (password_verify($data['password'], $user['password'])) {
-                   session_start();
                    $_SESSION['login'] = true;
                    $_SESSION['id'] = $user['id'];
                } else {
@@ -31,6 +29,20 @@ class LoginService
         } else {
             throw new \Exception('Validation error', 403);
         }
+    }
+
+    /**
+     * @return void
+     */
+    public function logout()
+    {
+        $_SESSION['login'] = false;
+        $_SESSION['id'] = null;
+    }
+
+    public function isLogin()
+    {
+        return (bool) $_SESSION['login'];
     }
 
     /**
