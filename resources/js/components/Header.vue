@@ -1,7 +1,9 @@
 <template>
   <section class="header">
     <div class="header__wrapper">
-      <h1 class="text-h6 font-weight-bold text-uppercase">Questionnaire</h1>
+      <router-link :to='{name: "dashboard"}' class="text-decoration-none">
+        <h1 class="text-h6 font-weight-bold text-uppercase">Questionnaire</h1>
+      </router-link>
       <div v-if="!login" class="d-flex">
         <router-link :to='{name: "user.login"}' class="text-decoration-none">
           <v-btn

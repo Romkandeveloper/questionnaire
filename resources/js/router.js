@@ -58,11 +58,23 @@ const router = createRouter({
                 },
             }
         },
+        {
+            name: '404',
+            path: '/:pathMatch(.*)*',
+            component: () => import('./pages/NotFound.vue'),
+            meta: {
+                auth: {
+                    login: false,
+                    only: false,
+                },
+            }
+        },
     ],
 });
 
 router.beforeEach(async (to, from, next) => {
-    const isAuth = store.state.isAuth;
+    const isAuth = store.state.auth.isAuth;
+    console.log(isAuth);
     const login = to.meta.auth && to.meta.auth.login;
     const only = to.meta.auth && to.meta.auth.only;
 
