@@ -98,7 +98,7 @@ export default {
         email: this.fields.email,
         password: this.fields.password,
       }).then(res => {
-        router.push({name: 'dashboard'});
+        router.push({name: 'user.profile'});
       }).catch(e => {
         alert(e.response.data.message);
         this.valid = false;

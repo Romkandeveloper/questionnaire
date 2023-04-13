@@ -118,7 +118,7 @@ export default {
         password: this.fields.password,
         password_confirmation: this.fields.confirmPassword,
       }).then(res => {
-        router.push({name: 'dashboard'});
+        router.push({name: 'user.profile'});
       }).catch(e => {
         alert(e.response.data.message);
         this.valid = false;
