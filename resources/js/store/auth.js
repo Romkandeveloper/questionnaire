@@ -3,11 +3,13 @@ import axios from "axios";
 export const auth = {
     state: () => ({
         isAuth: false,
+        isCheckAuth: false,
     }),
 
     mutations: {
         setIsAuth(state, status) {
             state.isAuth = status;
+            state.isCheckAuth = true;
         }
     },
 

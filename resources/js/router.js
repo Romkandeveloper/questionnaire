@@ -84,8 +84,13 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+    const isCheckAuth = store.state.auth.isCheckAuth;
+
+    if (!isCheckAuth) {
+        await store.dispatch('checkLoginStatus');
+    }
+
     const isAuth = store.state.auth.isAuth;
-    console.log(isAuth);
     const login = to.meta.auth && to.meta.auth.login;
     const only = to.meta.auth && to.meta.auth.only;
 
