@@ -20,6 +20,9 @@ class RegisterController extends Controller
     {
         try {
             $res = $this->registerService->register($this->getRequestDataBody());
+            echo json_encode([
+                'status' => 'success',
+            ]);
         } catch (\Exception $exception) {
             http_response_code($exception->getCode());
             echo json_encode([
@@ -27,9 +30,5 @@ class RegisterController extends Controller
                 'message' => $exception->getMessage(),
             ]);
         }
-
-        echo json_encode([
-            'status' => 'success',
-        ]);
     }
 }

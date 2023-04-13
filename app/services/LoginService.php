@@ -21,10 +21,10 @@ class LoginService
                    $_SESSION['login'] = true;
                    $_SESSION['id'] = $user['id'];
                } else {
-                   throw new \Exception('Wrong password');
+                   throw new \Exception('Wrong password', 403);
                }
             } else {
-                throw new \Exception('User not found');
+                throw new \Exception('User not found', 403);
             }
         } else {
             throw new \Exception('Validation error', 403);

@@ -20,6 +20,9 @@ class LoginController extends Controller
     {
         try {
             $this->loginService->login($this->getRequestDataBody());
+            echo json_encode([
+                'status' => 'success',
+            ]);
         } catch (\Exception $exception) {
             http_response_code($exception->getCode());
             echo json_encode([
@@ -27,16 +30,15 @@ class LoginController extends Controller
                 'message' => $exception->getMessage(),
             ]);
         }
-
-        echo json_encode([
-            'status' => 'success',
-        ]);
     }
 
     public function logoutAction()
     {
         try {
             $this->loginService->logout();
+            echo json_encode([
+                'status' => 'success',
+            ]);
         } catch (\Exception $exception) {
             http_response_code($exception->getCode());
             echo json_encode([
@@ -44,16 +46,15 @@ class LoginController extends Controller
                 'message' => $exception->getMessage(),
             ]);
         }
-
-        echo json_encode([
-            'status' => 'success',
-        ]);
     }
 
     public function isLoginAction()
     {
         try {
             $res = $this->loginService->isLogin();
+            echo json_encode([
+                'status' => $res,
+            ]);
         } catch (\Exception $exception) {
             http_response_code($exception->getCode());
             echo json_encode([
@@ -61,9 +62,5 @@ class LoginController extends Controller
                 'message' => $exception->getMessage(),
             ]);
         }
-
-        echo json_encode([
-            'status' => $res,
-        ]);
     }
 }

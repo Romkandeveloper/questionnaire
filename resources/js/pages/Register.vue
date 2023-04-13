@@ -120,8 +120,7 @@ export default {
       }).then(res => {
         router.push({name: 'dashboard'});
       }).catch(e => {
-        alert('Error');
-        console.log(e);
+        alert(e.response.data.message);
         this.valid = false;
       }).finally(() => {
         this.loading = false;

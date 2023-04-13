@@ -36,6 +36,10 @@ class RegisterService
         $v->rule('email', 'email');
         $v->rule('min', ['password', 'password_confirmation', 8]);
 
+        if (! empty(User::getByEmail($data['email']))) {
+            throw new \Exception('Email already exists', 403);
+        }
+
         return $v->validate();
     }
 }
