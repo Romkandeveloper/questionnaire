@@ -30,19 +30,42 @@ class QuestionnairesService
         }
     }
 
-    public function getCustom()
+    /**
+     * @param $id
+     * @return array
+     * @throws \Exception
+     */
+    public function getQuestionnaire($id) {
+        if (isset($id)) {
+            $questionnaire = Questionnaire::getById($id);
+            if ($questionnaire[0]['user_id'] == $_SESSION['id']) {
+                return $this->formatQuestionnaires($questionnaire)[0];
+            } else {
+                throw new \Exception('Forbidden', 403);
+            }
+        } else {
+            throw new \Exception('Incorrect id value', 403);
+        }
+    }
+
+    public function getCustomQuestionnaires()
     {
         return $this->formatQuestionnaires(Questionnaire::getByUserId($_SESSION['id']));
     }
 
-//    public function destroy()
-//    {
-//        if ($_SESSION['id'] == Questionnaire::getById();) {
-//            Questionnaire::create($data);
-//        } else {
-//            throw new \Exception('Validation error', 403);
-//        }
-//    }
+    public function destroy($id)
+    {
+        if (isset($id)) {
+            $questionnaire = Questionnaire::getById($id);
+            if ($questionnaire[0]['user_id'] == $_SESSION['id']) {
+                return Questionnaire::destroy($id);
+            } else {
+                throw new \Exception('Forbidden', 403);
+            }
+        } else {
+            throw new \Exception('Incorrect id value', 403);
+        }
+    }
 
     /**
      * @param array $data

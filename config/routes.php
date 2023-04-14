@@ -45,6 +45,13 @@ return [
 
     array(
         'path' => 'api/questionnaire',
+        'method' => 'get',
+        'controller' => 'questionnaires',
+        'action' => 'show',
+    ),
+
+    array(
+        'path' => 'api/questionnaire',
         'method' => 'delete',
         'controller' => 'questionnaires',
         'action' => 'destroy',

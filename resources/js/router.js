@@ -59,6 +59,28 @@ const router = createRouter({
             }
         },
         {
+            name: 'questionnaire.show',
+            path: '/questionnaire/:id',
+            component: () => import('./pages/questionnaire/Show.vue'),
+            meta: {
+                auth: {
+                    login: true,
+                    only: true,
+                },
+            }
+        },
+        {
+            name: 'questionnaire.edit',
+            path: '/questionnaire/:id/edit',
+            component: () => import('./pages/questionnaire/Create.vue'),
+            meta: {
+                auth: {
+                    login: true,
+                    only: true,
+                },
+            }
+        },
+        {
             name: '404',
             path: '/:pathMatch(.*)*',
             component: () => import('./pages/NotFound.vue'),

@@ -18,7 +18,7 @@ import Header from "../../components/Header.vue";
 import CreateForm from "../../components/questionnaire/CreateForm.vue";
 
 export default {
-  name: "Profile",
+  name: "Create",
   components: {Header, DefaultLayout, CreateForm },
 
   data() {

@@ -37,6 +37,28 @@ class QuestionnairesController extends Controller
 //        }
 //    }
 
+    public function showAction()
+    {
+        try {
+            if (! $this->loginService->isLogin()) {
+                throw new \Exception('Forbidden', 403);
+            }
+
+            $res = $this->questionnairesService->getQuestionnaire($_GET['id']);
+
+            echo json_encode([
+                'status' => 'success',
+                'item' => $res
+            ]);
+        } catch (\Exception $exception) {
+            http_response_code($exception->getCode());
+            echo json_encode([
+                'status' => 'error',
+                'message' => $exception->getMessage(),
+            ]);
+        }
+    }
+
     public function storeAction()
     {
         try {
@@ -65,7 +87,7 @@ class QuestionnairesController extends Controller
                 throw new \Exception('Forbidden', 403);
             }
 
-            $this->questionnairesService->destroy();
+            $this->questionnairesService->destroy($_GET['id']);
 
             echo json_encode([
                 'status' => 'success',
@@ -86,7 +108,7 @@ class QuestionnairesController extends Controller
                 throw new \Exception('Forbidden', 403);
             }
 
-            $res = $this->questionnairesService->getCustom();
+            $res = $this->questionnairesService->getCustomQuestionnaires();
 
             echo json_encode([
                 'status' => 'success',

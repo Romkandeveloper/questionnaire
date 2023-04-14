@@ -59,22 +59,36 @@ class Questionnaire extends Model
         return $db->query(
             'SELECT * FROM questionnaires 
                  LEFT JOIN answers ON answers.questionnaire_id = questionnaires.id
-                 WHERE questionnaire.id = :id',
+                 WHERE questionnaires.id = :id',
             ['id' => $id]
         );
     }
 
     /**
+     * @param int $id
      * @return array|false|string
      */
-    static public function getAll()
+    public static function destroy(int $id)
     {
         $db = new Db;
 
         return $db->query(
-            'SELECT * FROM questionnaires 
-                 LEFT JOIN answers ON answers.questionnaire_id = questionnaires.id
-                 WHERE questionnaires.is_publish = 1',
+            'DELETE FROM questionnaires WHERE id = :id',
+            ['id' => $id]
         );
     }
+
+//    /**
+//     * @return array|false|string
+//     */
+//    static public function getAll()
+//    {
+//        $db = new Db;
+//
+//        return $db->query(
+//            'SELECT * FROM questionnaires
+//                 LEFT JOIN answers ON answers.questionnaire_id = questionnaires.id
+//                 WHERE questionnaires.is_publish = 1',
+//        );
+//    }
 }
