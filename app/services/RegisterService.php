@@ -25,7 +25,7 @@ class RegisterService
                 'email' => $user['email']
             ];
         } else {
-            throw new \Exception('Validation error', 403);
+            throw new \Exception('Validation error', 422);
         }
     }
 
@@ -42,7 +42,7 @@ class RegisterService
         $v->rule('min', ['password', 'password_confirmation', 8]);
 
         if (! empty(User::getByEmail($data['email']))) {
-            throw new \Exception('Email already exists', 403);
+            throw new \Exception('Email already exists', 422);
         }
 
         return $v->validate();

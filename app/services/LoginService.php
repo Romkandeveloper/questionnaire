@@ -29,10 +29,10 @@ class LoginService
                    throw new \Exception('Wrong password', 403);
                }
             } else {
-                throw new \Exception('User not found', 403);
+                throw new \Exception('User not found', 404);
             }
         } else {
-            throw new \Exception('Validation error', 403);
+            throw new \Exception('Validation error', 422);
         }
     }
 

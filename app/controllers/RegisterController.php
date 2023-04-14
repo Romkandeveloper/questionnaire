@@ -20,6 +20,7 @@ class RegisterController extends Controller
     {
         try {
             $res = $this->registerService->register($this->getRequestDataBody());
+            http_response_code(204);
             echo json_encode([
                 'status' => 'success',
                 'user' => $res

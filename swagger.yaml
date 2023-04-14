@@ -1,0 +1,603 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: Dev server
+    url: http://localhost:8100
+info:
+  version: "1.0.0"
+  title: Questionnaires
+  description: The API for the Questionnaires project
+paths:
+  /api/register:
+    post:
+      tags:
+       - Auth
+      operationId: register
+      description: Register
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+      responses:
+        '204':
+          description: Created
+          content: {
+            application/json: {
+              schema: {
+                type: object,
+                properties: {
+                  status: {
+                    type: string,
+                    example: 'success'
+                  },
+                  user: {
+                    type: object,
+                    properties: {
+                      id: {   
+                        type: integer,
+                        example: 1
+                      },
+                      email: {
+                        type: string,
+                        example: 'example@gmail.com'
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        '422':
+          description: Validation error
+          content: {
+            application/json: {
+              schema: {
+                type: object,
+                properties: {
+                  status: {
+                    type: string,
+                    example: 'error'
+                  },
+                  message: {
+                    type: string,
+                    example: 'Email already exists'
+                  }
+                }
+              }
+            }
+          }
+  /api/login:
+    post:
+      tags:
+        - Auth
+      operationId: Login
+      description: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                email:
+                  type: string
+                  example: example@gmail.com
+                password: 
+                  type: string
+                  example: 12345678
+      responses:
+        '200':
+          description: OK
+          content: {
+            application/json: {
+              schema: {
+                type: object,
+                properties: {
+                  status: {
+                    type: string,
+                    example: 'success'
+                  },
+                  user: {
+                    type: object,
+                    properties: {
+                      id: {   
+                        type: integer,
+                        example: 1
+                      },
+                      email: {
+                        type: string,
+                        example: 'example@gmail.com'
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        '403':
+          description: Error
+          content: {
+            application/json: {
+              schema: {
+                type: object,
+                properties: {
+                  status: {
+                    type: string,
+                    example: 'error'
+                  },
+                  message: {
+                    type: string,
+                    example: 'Wrong password'
+                  }
+                }
+              }
+            }
+          }
+        '404':
+          description: Not found error
+          content: {
+            application/json: {
+              schema: {
+                type: object,
+                properties: {
+                  status: {
+                    type: string,
+                    example: 'error'
+                  },
+                  message: {
+                    type: string,
+                    example: 'User not found'
+                  }
+                }
+              }
+            }
+          }
+        '422':
+          description: Validation error
+          content: {
+            application/json: {
+              schema: {
+                type: object,
+                properties: {
+                  status: {
+                    type: string,
+                    example: 'error'
+                  },
+                  message: {
+                    type: string,
+                  }
+                }
+              }
+            }
+          }
+  /api/logout:
+    post:
+      tags: 
+        - Auth
+      description: Logout
+      operationId: logout
+      responses: 
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: {
+                    type: string,
+                    example: success
+                  }
+  /api/login/status:
+    get:
+      tags:
+        - Auth
+      operationId: isLogin
+      description: Is login
+      responses:
+        '200':
+          description: OK
+          content: {
+            application/json: {
+              schema: {
+                type: object,
+                properties: {
+                  status: {
+                    type: boolean,
+                    example: true
+                  },
+                  user: {
+                    type: object,
+                    properties: {
+                      id: {   
+                        type: integer,
+                        example: 1
+                      },
+                      email: {
+                        type: string,
+                        example: 'example@gmail.com'
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+  /api/questionnaire: 
+    get:
+      tags: 
+       - Questionnaires
+      description: Get questionnaire
+      operationId: get item
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema: 
+           type: string
+      responses:
+        '200':
+          description: OK
+          content: {
+            application/json: {
+              schema: {
+                type: object,
+                properties: {
+                  status: {
+                    type: string,
+                    example: 'error'
+                  },
+                  item: {
+                    $ref: '#/components/schemas/QuestionnaireItem'
+                  }
+                }
+              }
+            }
+          }
+        '403':
+          description: Error
+          content: {
+            application/json: {
+              schema: {
+                type: object,
+                properties: {
+                  status: {
+                    type: string,
+                    example: 'error'
+                  },
+                  message: {
+                    type: string,
+                    example: 'Forbidden'
+                  }
+                }
+              }
+            }
+          }
+    post:
+      tags: 
+       - Questionnaires
+      description: Store new questionnaire
+      operationId: store
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Questionnaire'
+      responses:
+        '204':
+          description: OK
+          content: {
+            application/json: {
+              schema: {
+                type: object,
+                properties: {
+                  status: {
+                    type: string,
+                    example: success
+                  }
+                }
+              }
+            }
+          }
+        '403':
+          description: Error
+          content: {
+            application/json: {
+              schema: {
+                type: object,
+                properties: {
+                  status: {
+                    type: string,
+                    example: 'error'
+                  },
+                  message: {
+                    type: string,
+                    example: 'Forbidden'
+                  }
+                }
+              }
+            }
+          }
+        '422':
+          description: Validation error
+          content: {
+            application/json: {
+              schema: {
+                type: object,
+                properties: {
+                  status: {
+                    type: string,
+                    example: 'error'
+                  },
+                  message: {
+                    type: string,
+                  }
+                }
+              }
+            }
+          }
+    put:
+      tags: 
+       - Questionnaires
+      description: Update questionnaire
+      operationId: update
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema: 
+           type: string
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Questionnaire'
+      responses:
+        '200':
+          description: OK
+          content: {
+            application/json: {
+              schema: {
+                type: object,
+                properties: {
+                  status: {
+                    type: string,
+                    example: success
+                  }
+                }
+              }
+            }
+          }
+        '403':
+          description: Error
+          content: {
+            application/json: {
+              schema: {
+                type: object,
+                properties: {
+                  status: {
+                    type: string,
+                    example: 'error'
+                  },
+                  message: {
+                    type: string,
+                    example: 'Forbidden'
+                  }
+                }
+              }
+            }
+          }
+        '422':
+          description: Validation error
+          content: {
+            application/json: {
+              schema: {
+                type: object,
+                properties: {
+                  status: {
+                    type: string,
+                    example: 'error'
+                  },
+                  message: {
+                    type: string,
+                  }
+                }
+              }
+            }
+          }
+    delete:
+      tags: 
+       - Questionnaires
+      description: Delete questionnaire
+      operationId: delete
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema: 
+           type: string
+      responses:
+        '200':
+          description: OK
+          content: {
+            application/json: {
+              schema: {
+                type: object,
+                properties: {
+                  status: {
+                    type: string,
+                    example: success
+                  }
+                }
+              }
+            }
+          }
+        '403':
+          description: Error
+          content: {
+            application/json: {
+              schema: {
+                type: object,
+                properties: {
+                  status: {
+                    type: string,
+                    example: 'error'
+                  },
+                  message: {
+                    type: string,
+                    example: 'Forbidden'
+                  }
+                }
+              }
+            }
+          }
+        '422':
+          description: Validation error
+          content: {
+            application/json: {
+              schema: {
+                type: object,
+                properties: {
+                  status: {
+                    type: string,
+                    example: 'error'
+                  },
+                  message: {
+                    type: string,
+                  }
+                }
+              }
+            }
+          }
+  /api/questionnaire/custom:
+    get:
+      tags: 
+       - Questionnaires
+      description: Get cutrom questionnaires
+      operationId: get custom items
+      responses:
+        '200':
+          description: OK
+          content: {
+            application/json: {
+              schema: {
+                type: object,
+                properties: {
+                  status: {
+                    type: string,
+                    example: 'error'
+                  },
+                  items: {
+                    type: array,
+                    items: {
+                      $ref: '#/components/schemas/QuestionnaireItem'
+                    }
+                  }
+                }
+              }
+            }
+          }
+        '403':
+          description: Error
+          content: {
+            application/json: {
+              schema: {
+                type: object,
+                properties: {
+                  status: {
+                    type: string,
+                    example: 'error'
+                  },
+                  message: {
+                    type: string,
+                    example: 'Forbidden'
+                  }
+                }
+              }
+            }
+          }
+components:
+  schemas:
+    Register:
+      type: object
+      description: Register user payload
+      required: 
+       - email
+       - password
+       - password_confirmation
+      properties: 
+        email: 
+          type: string
+          format: email
+          minLength: 8
+          maxLength: 255
+          example: example@gmail.com
+        password: 
+          type: string
+          minLength: 8
+          format: password
+          example: qwerty12
+        password_confirmation:
+          type: string
+          minLength: 8
+          format: password
+          example: qwerty12
+    Questionnaire:
+      type: object
+      description: Store new item
+      required: 
+       - question
+       - isPublish
+       - answers
+      properties: 
+        question: 
+          type: string
+          minLength: 1
+          example: do you?
+        isPublish: 
+          type: boolean
+          example: true
+        answers:
+          type: array
+          minLength: 1
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+                example: "yes"
+              votes:
+                type: integer
+                example: 5
+    QuestionnaireItem:
+      type: object
+      properties: 
+        id:
+          type: string
+          example: 1
+        created_at:
+          type: string
+          example: '2023-04-14 08:46:41'
+        question: 
+          type: string
+          example: do you?
+        isPublish: 
+          type: string
+          example: 0
+        answers:
+          type: array
+          minLength: 1
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+                example: "yes"
+              votes:
+                type: integer
+                example: 5
+            

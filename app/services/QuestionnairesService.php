@@ -26,7 +26,7 @@ class QuestionnairesService
         if ($this->validate($data)) {
             Questionnaire::create($data);
         } else {
-            throw new \Exception('Validation error', 403);
+            throw new \Exception('Validation error', 422);
         }
     }
 
@@ -44,7 +44,7 @@ class QuestionnairesService
                 throw new \Exception('Forbidden', 403);
             }
         } else {
-            throw new \Exception('Incorrect id value', 403);
+            throw new \Exception('Incorrect id value', 422);
         }
     }
 
@@ -65,7 +65,7 @@ class QuestionnairesService
                 throw new \Exception('Forbidden', 403);
             }
         } else {
-            throw new \Exception('Incorrect id value', 403);
+            throw new \Exception('Incorrect id value', 423);
         }
     }
 
@@ -84,7 +84,7 @@ class QuestionnairesService
                 throw new \Exception('Forbidden', 403);
             }
         } else {
-            throw new \Exception('Incorrect id value', 403);
+            throw new \Exception('Incorrect id value', 422);
         }
     }
 

@@ -89,9 +89,8 @@ class QuestionnairesController extends Controller
             if (! $this->loginService->isLogin()) {
                 throw new \Exception('Forbidden', 403);
             }
-
             $this->questionnairesService->store($this->getRequestDataBody());
-
+            http_response_code(204);
             echo json_encode([
                 'status' => 'success',
             ]);
