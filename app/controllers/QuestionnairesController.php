@@ -91,9 +91,6 @@ class QuestionnairesController extends Controller
             }
             $this->questionnairesService->store($this->getRequestDataBody());
             http_response_code(204);
-            echo json_encode([
-                'status' => 'success',
-            ]);
         } catch (\Exception $exception) {
             http_response_code($exception->getCode());
             echo json_encode([
