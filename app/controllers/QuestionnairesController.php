@@ -59,6 +59,30 @@ class QuestionnairesController extends Controller
         }
     }
 
+    public function updateAction()
+    {
+        try {
+            if (! $this->loginService->isLogin()) {
+                throw new \Exception('Forbidden', 403);
+            }
+
+            $this->questionnairesService->updateQuestionnaire(
+                $_GET['id'],
+                $this->getRequestDataBody(),
+            );
+
+            echo json_encode([
+                'status' => 'success',
+            ]);
+        } catch (\Exception $exception) {
+            //http_response_code($exception->getCode());
+            echo json_encode([
+                'status' => 'error',
+                'message' => $exception->getMessage(),
+            ]);
+        }
+    }
+
     public function storeAction()
     {
         try {

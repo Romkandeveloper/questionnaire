@@ -48,6 +48,27 @@ class QuestionnairesService
         }
     }
 
+    /**
+     * @param $id
+     * @return array
+     * @throws \Exception
+     */
+    public function updateQuestionnaire($id, array $data) {
+        if (isset($id)) {
+            $questionnaire = Questionnaire::getById($id);
+            if ($questionnaire[0]['user_id'] == $_SESSION['id']) {
+                if ($this->validate($data)) {
+                    return Questionnaire::update($id, $data);
+                }
+
+            } else {
+                throw new \Exception('Forbidden', 403);
+            }
+        } else {
+            throw new \Exception('Incorrect id value', 403);
+        }
+    }
+
     public function getCustomQuestionnaires()
     {
         return $this->formatQuestionnaires(Questionnaire::getByUserId($_SESSION['id']));
@@ -77,8 +98,9 @@ class QuestionnairesService
         $v->rule('required', ['question', 'answers', 'isPublish']);
         $v->rule('lengthMin', 'question', 1);
         $v->rule('array', 'answers');
-        $v->rule('lengthMin', 'settings.*.value', 1);
-        $v->rule('min', 'settings.*.votes', 0);
+        $v->rule('lengthMin', 'answers.*.value', 1);
+        $v->rule('min', 'answers.*.votes', 0);
+        $v->rule('integer', 'answers.*.id');
         $v->rule('boolean', 'isPublish');
 
         return $v->validate();
@@ -102,13 +124,15 @@ class QuestionnairesService
                     'created_at' => $params['created_at'],
                     'answers' => [[
                         'value' => $params['value'],
-                        'votes' => $params['votes']
+                        'votes' => $params['votes'],
+                        'id' => $params['id']
                     ]]
                 ];
             } else {
                 $res[$params['questionnaire_id']]['answers'][] = [
                     'value' => $params['value'],
-                    'votes' => $params['votes']
+                    'votes' => $params['votes'],
+                    'id' => $params['id']
                 ];
             }
         }

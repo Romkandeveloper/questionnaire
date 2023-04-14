@@ -60,13 +60,13 @@ class Router
                     $controller = new $path($this->params);
                     $controller->$action();
                 } else {
-                    header('Status: 503 Service Temporarily Unavailable');
+                    header('HTTP/1.1 503 Service Temporarily Unavailable');
                 }
             } else {
-                header('Status: 503 Service Temporarily Unavailable');
+                header('HTTP/1.1 503 Service Temporarily Unavailable');
             }
         } else {
-            header('Status: 503 Service Temporarily Unavailable');
+            header('HTTP/1.1 503 Service Temporarily Unavailable');
         }
     }
 

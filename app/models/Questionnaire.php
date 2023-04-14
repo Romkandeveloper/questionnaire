@@ -11,7 +11,7 @@ class Questionnaire extends Model
      * @param array $data
      * @return void
      */
-    static public function create(array $data)
+    public static function create(array $data)
     {
         //TODO make singleton db
         $db = new Db;
@@ -32,11 +32,36 @@ class Questionnaire extends Model
         }
     }
 
+    public static function update(int $id, array $data)
+    {
+        $db = new Db;
+
+        $db->query('UPDATE questionnaires SET question = :question, is_publish = :is_publish WHERE id = :id', [
+            'question' => $data['question'],
+            'is_publish' => (int) $data['isPublish'],
+            'id' => $id,
+        ]);
+
+        //TODO replace with multiple update
+        $db->query(
+            'DELETE FROM answers WHERE questionnaire_id = :id',
+            ['id' => $id]
+        );
+
+        foreach ($data['answers'] as $answer => $params) {
+            $db->query('INSERT INTO answers (value, votes, questionnaire_id) VALUES (:value, :votes, :questionnaire_id)', [
+                'value' => $params['value'],
+                'votes' => $params['votes'],
+                'questionnaire_id' => $id
+            ]);
+        }
+    }
+
     /**
      * @param int $user_id
      * @return array|false|string
      */
-    static public function getByUserId(int $user_id)
+    public static function getByUserId(int $user_id)
     {
         $db = new Db;
 
@@ -52,7 +77,7 @@ class Questionnaire extends Model
      * @param int $id
      * @return array|false|string
      */
-    static public function getById(int $id)
+    public static function getById(int $id)
     {
         $db = new Db;
 
@@ -64,10 +89,7 @@ class Questionnaire extends Model
         );
     }
 
-    /**
-     * @param int $id
-     * @return array|false|string
-     */
+
     public static function destroy(int $id)
     {
         $db = new Db;
