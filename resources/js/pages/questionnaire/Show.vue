@@ -12,7 +12,7 @@
               <v-card-item>
                 <v-card-title>{{ item.question }}</v-card-title>
                 <v-card-subtitle>{{ item.created_at}}</v-card-subtitle>
-                <v-card-subtitle>Status : {{ item.is_publish ? 'Published' : 'Not published'}}</v-card-subtitle>
+                <v-card-subtitle>Status : {{ Boolean(item.is_publish) ? 'Published' : 'Not published'}}</v-card-subtitle>
               </v-card-item>
               <v-card-subtitle>Votes:</v-card-subtitle>
               <div v-for="answer in item.answers">

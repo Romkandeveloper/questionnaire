@@ -72,7 +72,7 @@ const router = createRouter({
         {
             name: 'questionnaire.edit',
             path: '/questionnaire/:id/edit',
-            component: () => import('./pages/questionnaire/Create.vue'),
+            component: () => import('./pages/questionnaire/Edit.vue'),
             meta: {
                 auth: {
                     login: true,

@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="valid">
+  <v-form ref="form" v-model="valid">
     <v-card-text class="pb-0">
       <v-text-field
           name="question"
@@ -76,6 +76,7 @@ import router from "../../router";
 
 export default {
   name: "QuestionnaireCreateForm",
+  props: ['item'],
 
   data() {
     return {
@@ -94,12 +95,20 @@ export default {
     }
   },
 
+  mounted() {
+    if (this.item) {
+      this.fields.question = this.item.question;
+      this.fields.answers = this.item.answers;
+      this.$refs.form.validate();
+    }
+  },
+
   computed: {
 
   },
 
   methods: {
-    ...mapActions(['storeQuestionnaire']),
+    ...mapActions(['storeQuestionnaire', 'updateQuestionnaire']),
 
     addField() {
       this.fields.answers.push({value: '', votes: ''});
@@ -112,18 +121,33 @@ export default {
 
     store(isPublish) {
       this.loading = true;
-      this.storeQuestionnaire({
+      const data = {
         question: this.fields.question,
         answers: this.fields.answers,
         isPublish: isPublish
-      }).then(res => {
-        router.push({name: 'user.profile'});
-      }).catch(e => {
-        alert(e.response.data.message);
-        this.valid = false;
-      }).finally(() => {
-        this.loading = false;
-      });
+      }
+
+      //TODO refactor
+      if (this.item) {
+        console.log(this.item.id)
+        this.updateQuestionnaire({data, id: this.item.id}).then(res => {
+          router.push({name: 'user.profile'});
+        }).catch(e => {
+          alert(e.response.data.message);
+          this.valid = false;
+        }).finally(() => {
+          this.loading = false;
+        });
+      } else {
+        this.storeQuestionnaire(data).then(res => {
+          router.push({name: 'user.profile'});
+        }).catch(e => {
+          alert(e.response.data.message);
+          this.valid = false;
+        }).finally(() => {
+          this.loading = false;
+        });
+      }
     }
   },
 }

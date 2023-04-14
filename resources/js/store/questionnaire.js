@@ -67,6 +67,16 @@ export const questionnaire = {
             return Promise.resolve();
         },
 
+        async updateQuestionnaire({commit, dispatch}, {data, id}) {
+            try{
+                const res = await axios.put(`/api/questionnaire?id=${id}`, data);
+            } catch (e) {
+                throw e;
+            }
+
+            return Promise.resolve();
+        }
+
 
         // async getAllQuestionnaires({commit, dispatch}) {
         //     try{
