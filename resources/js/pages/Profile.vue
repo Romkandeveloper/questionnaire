@@ -16,7 +16,8 @@
           </v-btn>
         </router-link>
       </v-col>
-      <v-col cols="6">
+      <v-col v-if="loading" cols="12">Loading...</v-col>
+      <v-col v-else-if="items.length" cols="6">
         <v-data-table
             v-model:sort-by="sortBy"
             :headers="headers"
@@ -24,17 +25,16 @@
             class="elevation-1"
         >
           <template v-slot:item.question="{ item }">
-            <router-link :to="{name: 'questionnaire.create'}" class="text-black">
-              {{ item }}
+            <router-link :to="{name: 'questionnaire.show', params: {id: item.props.title.id}}" class="text-black">
+              {{ item.props.title.question }}
             </router-link>
           </template>
           <template v-slot:item.is_publish="{ item }">
-            <router-link :to="{name: 'questionnaire.create'}" class="text-black">
-              {{ item }}
-            </router-link>
+              {{ Boolean(+item.props.title.is_publish) }}
           </template>
         </v-data-table>
       </v-col>
+      <v-col v-else>Empty</v-col>
     </v-row>
   </default-layout>
 </template>
@@ -43,7 +43,7 @@
 
 import DefaultLayout from "../layouts/DefaultLayout.vue";
 import Header from "../components/Header.vue";
-import {mapActions, mapState} from "vuex";
+import {mapActions, mapMutations, mapState} from "vuex";
 
 export default {
   name: "Profile",
@@ -54,14 +54,20 @@ export default {
       sortBy: [{ key: 'question', order: 'asc' }],
       headers: [
         { title: 'Question', align: 'start', key: 'question' },
-        { title: 'Created', key: 'created_at' },
+        { title: 'Created', key: 'created_at', type: 'date' },
         { title: 'Publish', key: 'is_publish' },
       ],
+      loading: true,
     }
   },
 
   mounted() {
-    this.getOwnQuestionnaires();
+    this.getOwnQuestionnaires()
+        .finally(() => this.loading = false);
+  },
+
+  unmounted() {
+    this.setCustomItems([]);
   },
 
   computed: {
@@ -71,6 +77,7 @@ export default {
 
   },
   methods: {
+      ...mapMutations(['setCustomItems']),
       ...mapActions(['getOwnQuestionnaires']),
   },
 }

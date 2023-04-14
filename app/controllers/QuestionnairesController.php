@@ -75,7 +75,7 @@ class QuestionnairesController extends Controller
                 'status' => 'success',
             ]);
         } catch (\Exception $exception) {
-            //http_response_code($exception->getCode());
+            http_response_code($exception->getCode());
             echo json_encode([
                 'status' => 'error',
                 'message' => $exception->getMessage(),

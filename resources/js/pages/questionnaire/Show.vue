@@ -8,7 +8,7 @@
         <v-col cols="12">
           <span v-if="loading">Loading...</span>
           <div v-else>
-            <v-card width="400">
+            <v-card v-if="item" width="400">
               <v-card-item>
                 <v-card-title>{{ item.question }}</v-card-title>
                 <v-card-subtitle>{{ item.created_at}}</v-card-subtitle>

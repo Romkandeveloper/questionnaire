@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import { createVuetify } from 'vuetify';
-import { VDataTable } from 'vuetify/labs/VDataTable'
+import { VDataTable } from 'vuetify/labs/VDataTable';
+import '@mdi/font/css/materialdesignicons.css';
 
 import App from './App.vue';
 import router from './router';
@@ -19,6 +20,9 @@ const vuetify = createVuetify({
         VDataTable,
     },
     directives,
+    icons: {
+        iconfont: 'mdi',
+    },
 })
 
 const app = createApp(App)
