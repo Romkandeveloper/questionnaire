@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[676],{676:(e,r,a)=>{a.r(r),a.d(r,{default:()=>l});var t=a(252);const s={class:"alert alert-primary",role:"alert"},i={name:"Index.vue"},l=(0,a(744).Z)(i,[["render",function(e,r,a,i,l,n){return(0,t.wg)(),(0,t.iD)("div",s," This is a primary alert—check it out! ")}]])}}]);
