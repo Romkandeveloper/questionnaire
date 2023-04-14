@@ -13,9 +13,8 @@ class Questionnaire extends Model
      */
     static public function create(array $data)
     {
+        //TODO make singleton db
         $db = new Db;
-
-        var_dump($data['isPublish']);
 
         $id = $db->query('INSERT INTO questionnaires (question, is_publish, user_id) VALUES (:question, :is_publish, :user_id)', [
             'question' => $data['question'],
@@ -25,7 +24,6 @@ class Questionnaire extends Model
 
         //TODO replace with multiple insert
         foreach ($data['answers'] as $answer => $params) {
-            var_dump($params);
             $db->query('INSERT INTO answers (value, votes, questionnaire_id) VALUES (:value, :votes, :questionnaire_id)', [
                 'value' => $params['value'],
                 'votes' => $params['votes'],
@@ -34,17 +32,49 @@ class Questionnaire extends Model
         }
     }
 
-//    static public function getByUserId(int $id)
-//    {
-//        $db = new Db;
-//
-//        return $db->query('SELECT * FROM users WHERE email = :email', ['email' => $email]);
-//    }
+    /**
+     * @param int $user_id
+     * @return array|false|string
+     */
+    static public function getByUserId(int $user_id)
+    {
+        $db = new Db;
 
-//    static public function getAll()
-//    {
-//        $db = new Db;
-//
-//        return $db->query('SELECT * FROM users WHERE email = :email', ['email' => $email]);
-//    }
+        return $db->query(
+            'SELECT * FROM questionnaires 
+                 LEFT JOIN answers ON answers.questionnaire_id = questionnaires.id
+                 WHERE user_id = :user_id',
+            ['user_id' => $user_id]
+        );
+    }
+
+    /**
+     * @param int $id
+     * @return array|false|string
+     */
+    static public function getById(int $id)
+    {
+        $db = new Db;
+
+        return $db->query(
+            'SELECT * FROM questionnaires 
+                 LEFT JOIN answers ON answers.questionnaire_id = questionnaires.id
+                 WHERE questionnaire.id = :id',
+            ['id' => $id]
+        );
+    }
+
+    /**
+     * @return array|false|string
+     */
+    static public function getAll()
+    {
+        $db = new Db;
+
+        return $db->query(
+            'SELECT * FROM questionnaires 
+                 LEFT JOIN answers ON answers.questionnaire_id = questionnaires.id
+                 WHERE questionnaires.is_publish = 1',
+        );
+    }
 }

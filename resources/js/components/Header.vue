@@ -1,7 +1,7 @@
 <template>
   <section class="header">
     <div class="header__wrapper">
-      <router-link :to='{name: "dashboard"}' class="text-decoration-none">
+      <router-link :to='{name: "user.profile"}' class="text-decoration-none">
         <h1 class="text-h6 font-weight-bold text-uppercase">Questionnaire</h1>
       </router-link>
       <div v-if="!login" class="d-flex">
@@ -27,17 +27,31 @@
           </v-btn>
         </router-link>
       </div>
-      <v-btn
-          v-else
-          rounded="pill"
-          variant="flat"
-          size="small"
-          class="btn-black"
-          :loading="loading"
-          @click.p.prevent="submit"
-      >
-        Logout
-      </v-btn>
+      <div
+        v-else
+        >
+        <router-link :to='{name: "user.profile"}' class="text-decoration-none">
+          <v-btn
+              variant="plain"
+              size="small"
+              class="mr-2"
+              rounded="pill"
+              color="#000"
+          >
+            Profile
+          </v-btn>
+        </router-link>
+        <v-btn
+            rounded="pill"
+            variant="flat"
+            size="small"
+            class="btn-black"
+            :loading="loading"
+            @click.p.prevent="submit"
+        >
+          Logout
+        </v-btn>
+      </div>
     </div>
   </section>
 </template>
@@ -67,7 +81,7 @@ export default {
     submit() {
       this.loading = true;
       this.logout()
-          .then(res => router.push({name: 'dashboard'}))
+          .then(res => router.push({name: 'user.login'}))
           .finally(() => {
             this.loading = false;
           });

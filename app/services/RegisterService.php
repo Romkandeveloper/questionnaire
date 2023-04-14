@@ -19,6 +19,11 @@ class RegisterService
             $user = User::getByEmail($data['email'])[0];
             $_SESSION['login'] = true;
             $_SESSION['id'] = $user['id'];
+
+            return [
+                'id' => $user['id'],
+                'email' => $user['email']
+            ];
         } else {
             throw new \Exception('Validation error', 403);
         }

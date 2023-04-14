@@ -4,20 +4,26 @@ export const auth = {
     state: () => ({
         isAuth: false,
         isCheckAuth: false,
+        user: null,
     }),
 
     mutations: {
         setIsAuth(state, status) {
             state.isAuth = status;
             state.isCheckAuth = true;
+        },
+
+        setUser(state, data) {
+            state.user = data;
         }
     },
 
     actions: {
         async register({commit, dispatch}, registerData) {
             try{
-                await axios.post('/api/register', registerData);
+                const res = await axios.post('/api/register', registerData);
                 commit('setIsAuth', true);
+                commit('setUser', res.data.user);
             } catch (e) {
                 throw e;
             }
@@ -27,8 +33,9 @@ export const auth = {
 
         async login({commit, dispatch}, loginData) {
             try{
-                await axios.post('/api/login', loginData);
+                const res = await axios.post('/api/login', loginData);
                 commit('setIsAuth', true);
+                commit('setUser', res.data.user);
             } catch (e) {
                 throw e;
             }
@@ -40,6 +47,7 @@ export const auth = {
             try{
                 await axios.post('/api/logout');
                 commit('setIsAuth', false);
+                commit('setUser', null);
             } catch (e) {
                 throw e;
             }
@@ -51,6 +59,7 @@ export const auth = {
             try {
                 const res = await axios.get('/api/login/status');
                 commit('setIsAuth', res.data.status);
+                commit('setUser', res.data.user);
             } catch (e) {
                 throw e;
             }

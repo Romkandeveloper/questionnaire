@@ -50,12 +50,12 @@ return [
         'action' => 'destroy',
     ),
 
-     array(
-         'path' => 'api/questionnaire/all',
-         'method' => 'get',
-         'controller' => 'questionnaires',
-         'action' => 'index',
-     ),
+//     array(
+//         'path' => 'api/questionnaire',
+//         'method' => 'get',
+//         'controller' => 'questionnaires',
+//         'action' => 'index',
+//     ),
 
     array(
         'path' => 'api/questionnaire/custom',

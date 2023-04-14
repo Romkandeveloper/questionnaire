@@ -19,6 +19,24 @@ class QuestionnairesController extends Controller
         $this->loginService = new LoginService();
     }
 
+//    public function indexAction()
+//    {
+//        try {
+//            $res = $this->questionnairesService->getAll();
+//
+//            echo json_encode([
+//                'status' => 'success',
+//                'items' => $res,
+//            ]);
+//        } catch (\Exception $exception) {
+//
+//            echo json_encode([
+//                'status' => 'error',
+//                'message' => $exception->getMessage(),
+//            ]);
+//        }
+//    }
+
     public function storeAction()
     {
         try {
@@ -32,7 +50,50 @@ class QuestionnairesController extends Controller
                 'status' => 'success',
             ]);
         } catch (\Exception $exception) {
-            //http_response_code($exception->getCode());
+            http_response_code($exception->getCode());
+            echo json_encode([
+                'status' => 'error',
+                'message' => $exception->getMessage(),
+            ]);
+        }
+    }
+
+    public function destroyAction()
+    {
+        try {
+            if (! $this->loginService->isLogin()) {
+                throw new \Exception('Forbidden', 403);
+            }
+
+            $this->questionnairesService->destroy();
+
+            echo json_encode([
+                'status' => 'success',
+            ]);
+        } catch (\Exception $exception) {
+            http_response_code($exception->getCode());
+            echo json_encode([
+                'status' => 'error',
+                'message' => $exception->getMessage(),
+            ]);
+        }
+    }
+
+    public function getCustomAction()
+    {
+        try {
+            if (! $this->loginService->isLogin()) {
+                throw new \Exception('Forbidden', 403);
+            }
+
+            $res = $this->questionnairesService->getCustom();
+
+            echo json_encode([
+                'status' => 'success',
+                'items' => $res,
+            ]);
+        } catch (\Exception $exception) {
+            http_response_code($exception->getCode());
             echo json_encode([
                 'status' => 'error',
                 'message' => $exception->getMessage(),

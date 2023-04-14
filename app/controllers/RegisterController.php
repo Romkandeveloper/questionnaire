@@ -22,6 +22,7 @@ class RegisterController extends Controller
             $res = $this->registerService->register($this->getRequestDataBody());
             echo json_encode([
                 'status' => 'success',
+                'user' => $res
             ]);
         } catch (\Exception $exception) {
             http_response_code($exception->getCode());

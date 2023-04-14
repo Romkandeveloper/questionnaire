@@ -27,4 +27,11 @@ class User extends Model
 
         return $db->query('SELECT * FROM users WHERE email = :email', ['email' => $email]);
     }
+
+    static public function getById(int $id)
+    {
+        $db = new Db;
+
+        return $db->query('SELECT * FROM users WHERE id = :id', ['id' => $id]);
+    }
 }

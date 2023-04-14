@@ -15,12 +15,12 @@ import DefaultLayout from "../layouts/DefaultLayout.vue";
 import Header from "../components/Header.vue";
 
 export default {
-  name: "Dashboard",
+  name: "NotFound",
   components: {Header, DefaultLayout },
 
   data() {
     return {
-        
+
     }
   },
 

@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import { createVuetify } from 'vuetify';
+import { VDataTable } from 'vuetify/labs/VDataTable'
 
 import App from './App.vue';
 import router from './router';
@@ -13,7 +14,10 @@ import * as directives from 'vuetify/directives';
 import store from './store';
 
 const vuetify = createVuetify({
-    components,
+    components: {
+        ...components,
+        VDataTable,
+    },
     directives,
 })
 

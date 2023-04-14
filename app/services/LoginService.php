@@ -20,6 +20,11 @@ class LoginService
                if (password_verify($data['password'], $user['password'])) {
                    $_SESSION['login'] = true;
                    $_SESSION['id'] = $user['id'];
+
+                   return [
+                       'id' => $user['id'],
+                       'email' => $user['email']
+                   ];
                } else {
                    throw new \Exception('Wrong password', 403);
                }
@@ -42,7 +47,15 @@ class LoginService
 
     public function isLogin()
     {
-        return (bool) $_SESSION['login'];
+        $isLogin = (bool) $_SESSION['login'];
+        if ($isLogin) $user = User::getById($_SESSION['id'])[0];
+
+        return [
+            'status' => $isLogin,
+            'user' => $user
+                ? ['id' => $user['id'], 'email' => $user['email']]
+                : null
+        ];
     }
 
     /**

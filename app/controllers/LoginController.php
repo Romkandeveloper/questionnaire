@@ -19,9 +19,10 @@ class LoginController extends Controller
     public function loginAction()
     {
         try {
-            $this->loginService->login($this->getRequestDataBody());
+            $res = $this->loginService->login($this->getRequestDataBody());
             echo json_encode([
                 'status' => 'success',
+                'user' => $res,
             ]);
         } catch (\Exception $exception) {
             http_response_code($exception->getCode());
@@ -53,7 +54,8 @@ class LoginController extends Controller
         try {
             $res = $this->loginService->isLogin();
             echo json_encode([
-                'status' => $res,
+                'status' => $res['status'],
+                'user' => $res['user']
             ]);
         } catch (\Exception $exception) {
             http_response_code($exception->getCode());
