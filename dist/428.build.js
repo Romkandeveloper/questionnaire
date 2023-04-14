@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[428],{428:(e,n,u)=>{u.r(n),u.d(n,{default:()=>s});const r={name:"Index.vue"},s=(0,u(744).Z)(r,[["render",function(e,n,u,r,s,t){return" Hi "}]])}}]);
